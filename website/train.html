@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head class="header">
+    <meta charset="UTF-8">
+    <title>display</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+    function browseFolder0(path) {
+    try {
+        var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息
+        var Shell = new ActiveXObject("Shell.Application");
+        //var Folder = Shell.BrowseForFolder(0, Message, 64, 17); //起始目录为：我的电脑
+        var Folder = Shell.BrowseForFolder(0, Message, 0); //起始目录为：桌面
+        if (Folder != null) {
+            Folder = Folder.items(); // 返回 FolderItems 对象
+            Folder = Folder.item(); // 返回 Folderitem 对象
+            Folder = Folder.Path; // 返回路径
+            if (Folder.charAt(Folder.length - 1) != "\\") {
+                Folder = Folder + "\\";
+            }
+            document.getElementById(path).value = Folder;
+            return Folder;
+             }
+         }
+        catch (e) {
+            alert(e.message);
+        }
+    }
+    </script>
+    <script type="text/javascript">
+        function tensorboard() {
+            var mod = $("#train_model").val();
+            //alert(mod);
+            var p = $("#train_path").val();
+            var data = {"train_path":p, "train_model":mod};
+            $.ajax({
+                  url: '/tensorboard',
+                  type: 'POST',
+                  data: data,
+                  dataType: 'json',
+                  success: function (data) {
+
+                  }
+              })
+        }
+         function train() {
+            var mod = $("#train_model").val();
+            //alert(mod);
+            var p = $("#train_path").val();
+            var data = {"train_path":p, "train_model":mod};
+              $.ajax({
+                  url: '/train',
+                  type: 'POST',
+                  data: data,
+                  dataType: 'json',
+                  success: function (data) {
+
+                  }
+              })
+          }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial;
+      margin: 0;
+    }
+    h4 {font-size: inherit;
+    font-weight: initial;}
+
+    .header {
+      padding: 60px;
+      text-align: center;
+      background: #1abc9c;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      background-color: #333;
+      color: white;
+      flex-direction: row-reverse;
+    }
+    .navbar a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .side {
+      flex: 30%;
+      background-color: #f1f1f1;
+      padding: 20px;
+    }
+
+    .main {
+      flex: 70%;
+      background-color: white;
+      padding: 20px;
+    }
+
+    .fakeimg {
+      background-color: #aaa;
+      width: 100%;
+      padding: 20px;
+    }
+    .data_box {
+      background-color: #aaa;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .footer {
+      padding: 20px;
+      text-align: center;
+      background: #ddd;
+    }
+
+    .nav-left {
+    float: left;
+    position: relative;
+    overflow: hidden;
+    font-size: 12px;
+    }
+
+     .formbox {
+            display:-webkit-flex;
+            display: flex;
+            justify-content: center;
+            flex-direction:row;
+            flex-wrap:nowrap;
+            align-items: stretch;
+            align-content: center;
+            height:30px;
+        }
+
+     .input-text1{
+        order:0;
+        flex-shrink:1;
+        flex-basis:auto;
+        flex:3 1 auto;
+        align-self:center;
+        border: 1px solid #3BADC9;
+        border-right: none;
+        border-radius: 5px 0px 0px 5px;
+        height: 30px;
+        background: #fff;
+     }
+
+     .btn{
+        background: #3BADC9;
+        border: 1px solid #3BADC9;
+        color: #fff;
+        border-radius: 0px 5px 5px 0px;
+        font-size: 1rem;
+        flex:2;
+     }
+
+    @media screen and (max-width: 700px) {
+      .row, .navbar {
+        flex-direction: column;
+      }
+    }
+
+    #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+    #customers tr:hover {background-color: #ddd;}
+
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+	select{
+	font-size:12px !baiimportant;
+	font-family:"Microsoft YaHei" !important;
+	}
+    </style>
+</head>
+<body>
+<div class="row">
+     <div class="main" id="div1">
+          <tr><td><h4>Set train path: </h4></td>
+              <td><input  class="input-text1" id="train_path" type="text" name="path" size="30"></td>
+
+              <td><h4>Choose model: </h4></td>
+               <select id="train_model" class="input-text1" οnchange="KK.innerText =this.options[this.selectedIndex].value" >
+                    <option value></option>
+                    <option value="cgan" >cgan</option>
+                    <option value="wgan" >wgan</option>
+                    <option value="wgan_attention" >wgan + attention</option>
+               </select>
+          </tr>
+         <br><br>
+         <input id="train" type=button class="btn" value="train" onclick="train()">
+         <input id="tensorboard" type=button class="btn" value="tensorboard" onclick="tensorboard()">
+         <a href="{{ url_for('display')}}">test</a>
+         <table id="train_customers">
+        </table>
+     </div>
+</div>
+<!-- Footer -->
+<div class="footer">
+   <small>&copy; 2020 <a href="https://github.com/Taichi-Pink/">Taichi</a></small>
+</div>
+
+</body>
+</html>

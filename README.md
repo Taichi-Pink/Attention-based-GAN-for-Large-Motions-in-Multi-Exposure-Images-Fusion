@@ -1,7 +1,5 @@
 # Attention-based GAN for Large Motions in Multi-Exposure Images Fusion
 
-[Weights](https://www.dropbox.com/sh/mkc125f02dqkhr1/AABkRHcePzG_pkk7c4pDStU6a?dl=0)
-
 ##
 <p align="middle">
 <img src="display_image/results.png" >
@@ -20,6 +18,9 @@ In this project, we utilize CGAN, WGAN, and attention mechanism to solve the gho
  git clone https://github.com/Taichi-Pink/Attention-based-GAN-for-Large-Motions-in-Multi-Exposure-Images-Fusion.git
  cd Attention-based-GAN-for-Large-Motions-in-Multi-Exposure-Images-Fusion
  ```
+ * Download [Weights](https://www.dropbox.com/sh/mkc125f02dqkhr1/AABkRHcePzG_pkk7c4pDStU6a?dl=0) and place them under ```weights``` folder.
+ * Download [Dataset](https://www.robots.ox.ac.uk/~szwu/storage/hdr/kalantari_dataset.zip). Place it under ```test_images_path``` folder.
+ 
  <!-- * Download data from [SICE dataset](https://github.com/csjcai/SICE). Place it under ```Dataset``` folder. Split the data in Dataset_Part1 into train (80%) and test (20%) set. -->
 
 ### Test

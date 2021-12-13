@@ -30,9 +30,10 @@ def display():
         return render_template('display.html')
     else:
         print('display post\n')
-        test_path=request.form.get('path')
-        model = request.form.get('model')
-        save_path = r'F:\Graduation\code\test_result'
+        test_path=request.form.get('path') #path to test images
+        model = request.form.get('model')  #pre-trained weights
+        save_path = './test_results'
+        
         if test_path!=None and model!=None:
 
             if model=='cgan':
@@ -121,7 +122,8 @@ def train():
         print(train_path)
         print(train_model)
         if train_path!=None and train_model!=None:
-            train_save_path = r"F:\Graduation\code\train_weight"
+            train_save_path = "./train_weight"
+            
             if train_model=='cgan':
                 train_file_name = 'conditional_gan.py'
             elif train_model=='wgan':
@@ -144,11 +146,11 @@ def train():
 def tensorboard():
     train_model = request.form.get('train_model')
     if train_model == 'cgan':
-        path = r"F:\Graduation\code\log\conditional_gan"
+        path = "./log/conditional_gan"
     elif train_model == 'wgan':
-        path = r"F:\Graduation\code\log\wgan_result"
+        path = "./log/wgan"
     else:
-        path = r"F:\Graduation\code\log\wgan_attention"
+        path = "./log/wgan_attention"
 
     t = threading.Thread(target=launchTensorBoard, args=([path]))
     t.start()
